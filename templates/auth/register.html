@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Bangladesh Hospital System{% endblock %}
+
+{% block content_unauth %}
+    <div class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 100px);">
+        <div class="card" style="max-width: 500px; width: 100%; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold" style="color: var(--primary);">🏥 Bangladesh Hospital</h4>
+                    <p class="text-muted">Create your account</p>
+                </div>
+                
+                <form method="POST" action="{{ url_for('auth.register') }}">
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label" style="color: var(--primary); font-weight: 600;">Full Name</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name" required placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label" style="color: var(--primary); font-weight: 600;">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" required placeholder="8801XXXXXXXXX">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="carrier" class="form-label" style="color: var(--primary); font-weight: 600;">Mobile Carrier</label>
+                        <select class="form-select" id="carrier" name="carrier" required>
+                            <option value="">Select your carrier</option>
+                            <option value="Grameenphone">Grameenphone</option>
+                            <option value="Robi">Robi</option>
+                            <option value="Banglalink">Banglalink</option>
+                            <option value="Teletalk">Teletalk</option>
+                            <option value="Airtel">Airtel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label" style="color: var(--primary); font-weight: 600;">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required placeholder="At least 8 characters, 1 uppercase, 1 digit">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="confirm_password" class="form-label" style="color: var(--primary); font-weight: 600;">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn w-100 btn-lg" style="background-color: var(--primary); border-color: var(--primary); color: white;">
+                        Register
+                    </button>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <p class="mb-0">Already have an account? <a href="{{ url_for('auth.login') }}" class="text-decoration-none" style="color: var(--primary);">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

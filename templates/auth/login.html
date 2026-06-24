@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Bangladesh Hospital System{% endblock %}
+
+{% block content_unauth %}
+    <div class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 100px);">
+        <div class="card" style="max-width: 450px; width: 100%; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold" style="color: var(--primary);">🏥 Bangladesh Hospital</h4>
+                    <p class="text-muted">Your trusted healthcare partner in Bangladesh</p>
+                </div>
+                
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label" style="color: var(--primary); font-weight: 600;">Full Name</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name" required placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label" style="color: var(--primary); font-weight: 600;">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" required placeholder="8801XXXXXXXXX">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="form-label" style="color: var(--primary); font-weight: 600;">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn w-100 btn-lg" style="background-color: var(--primary); border-color: var(--primary); color: white;">
+                        Login
+                    </button>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <p class="mb-0">Don't have an account? <a href="{{ url_for('auth.register') }}" class="text-decoration-none" style="color: var(--primary);">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

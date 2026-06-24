@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify OTP - Bangladesh Hospital System{% endblock %}
+
+{% block content_unauth %}
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 200px);">
+        <div class="card" style="max-width: 500px; width: 100%; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold" style="color: var(--primary);">🏥 Bangladesh Hospital</h4>
+                    <p class="text-muted">Please verify your OTP to continue</p>
+                </div>
+                
+                <div class="countdown text-center mb-4" id="countdown" style="font-size: 1.2rem; font-weight: 600; color: var(--primary);">10:00</div>
+                
+                <form method="POST" action="{{ url_for('auth.verify_otp') }}">
+                    <div class="otp-inputs d-flex gap-2 justify-content-center mb-4">
+                        <input type="text" class="otp-input form-control" id="digit1" name="digit1" maxlength="1" inputmode="numeric" pattern="[0-9]" required style="width: 50px; height: 60px; text-align: center; font-size: 24px; font-weight: bold;">
+                        <input type="text" class="otp-input form-control" id="digit2" name="digit2" maxlength="1" inputmode="numeric" pattern="[0-9]" required style="width: 50px; height: 60px; text-align: center; font-size: 24px; font-weight: bold;">
+                        <input type="text" class="otp-input form-control" id="digit3" name="digit3" maxlength="1" inputmode="numeric" pattern="[0-9]" required style="width: 50px; height: 60px; text-align: center; font-size: 24px; font-weight: bold;">
+                        <input type="text" class="otp-input form-control" id="digit4" name="digit4" maxlength="1" inputmode="numeric" pattern="[0-9]" required style="width: 50px; height: 60px; text-align: center; font-size: 24px; font-weight: bold;">
+                        <input type="text" class="otp-input form-control" id="digit5" name="digit5" maxlength="1" inputmode="numeric" pattern="[0-9]" required style="width: 50px; height: 60px; text-align: center; font-size: 24px; font-weight: bold;">
+                        <input type="text" class="otp-input form-control" id="digit6" name="digit6" maxlength="1" inputmode="numeric" pattern="[0-9]" required style="width: 50px; height: 60px; text-align: center; font-size: 24px; font-weight: bold;">
+                    </div>
+                    
+                    <button type="submit" class="btn w-100 btn-lg mb-3" style="background-color: var(--primary); border-color: var(--primary); color: white;">Verify OTP</button>
+                </form>
+                
+                <form method="POST" action="{{ url_for('auth.resend_otp') }}">
+                    <button type="submit" id="resendBtn" class="btn w-100" style="background-color: #6c757d; border-color: #6c757d; color: white; display: none;">Resend OTP</button>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('auth.login') }}" class="text-decoration-none text-muted">Back to Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/otp.js') }}"></script>
+{% endblock %}
