@@ -1,41 +1,77 @@
 {% extends 'base.html' %}
-
-{% block title %}Login - Bangladesh Hospital System{% endblock %}
+{% block title %}Sign In - MediCare BD{% endblock %}
 
 {% block content_unauth %}
-    <div class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 100px);">
-        <div class="card" style="max-width: 450px; width: 100%; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);">
-            <div class="card-body p-4">
-                <div class="text-center mb-4">
-                    <h4 class="fw-bold" style="color: var(--primary);">🏥 Bangladesh Hospital</h4>
-                    <p class="text-muted">Your trusted healthcare partner in Bangladesh</p>
+<div class="min-vh-100 d-flex" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
+
+    <!-- Left decorative panel -->
+    <div class="d-none d-lg-flex col-lg-6 align-items-center justify-content-center p-5" style="position:relative; overflow:hidden;">
+        <div style="position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:rgba(99,102,241,0.15);border-radius:50%;filter:blur(60px);"></div>
+        <div style="position:absolute;bottom:-50px;right:-50px;width:300px;height:300px;background:rgba(6,182,212,0.1);border-radius:50%;filter:blur(60px);"></div>
+        <div class="text-center text-white" style="position:relative;z-index:2;">
+            <div style="font-size:5rem;">🏥</div>
+            <h2 class="fw-bold mt-3 mb-2" style="font-size:2rem;">MediCare Bangladesh</h2>
+            <p style="color:rgba(255,255,255,0.6); font-size:1rem; max-width:320px; margin:0 auto;">
+                Your trusted hospital appointment scheduling system. Book with top doctors across Bangladesh.
+            </p>
+            <div class="d-flex gap-4 justify-content-center mt-4">
+                <div class="text-center">
+                    <div class="fw-bold fs-4" style="color:#a5b4fc;">15+</div>
+                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Doctors</div>
                 </div>
-                
-                <form method="POST" action="{{ url_for('auth.login') }}">
-                    <div class="mb-3">
-                        <label for="full_name" class="form-label" style="color: var(--primary); font-weight: 600;">Full Name</label>
-                        <input type="text" class="form-control" id="full_name" name="full_name" required placeholder="Enter your full name">
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="phone_number" class="form-label" style="color: var(--primary); font-weight: 600;">Phone Number</label>
-                        <input type="text" class="form-control" id="phone_number" name="phone_number" required placeholder="8801XXXXXXXXX">
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="password" class="form-label" style="color: var(--primary); font-weight: 600;">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    
-                    <button type="submit" class="btn w-100 btn-lg" style="background-color: var(--primary); border-color: var(--primary); color: white;">
-                        Login
-                    </button>
-                </form>
-                
-                <div class="text-center mt-4">
-                    <p class="mb-0">Don't have an account? <a href="{{ url_for('auth.register') }}" class="text-decoration-none" style="color: var(--primary);">Register here</a></p>
+                <div class="text-center">
+                    <div class="fw-bold fs-4" style="color:#67e8f9;">5</div>
+                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Departments</div>
+                </div>
+                <div class="text-center">
+                    <div class="fw-bold fs-4" style="color:#6ee7b7;">24/7</div>
+                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Support</div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Right login form -->
+    <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center p-4">
+        <div style="width:100%;max-width:420px;">
+            <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:40px;">
+                <div class="text-center mb-4">
+                    <div style="width:56px;height:56px;background:linear-gradient(135deg,#6366f1,#06b6d4);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:16px;">🏥</div>
+                    <h3 class="fw-bold text-white mb-1">Welcome Back</h3>
+                    <p style="color:rgba(255,255,255,0.5);font-size:0.875rem;">Sign in to your account</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="color:rgba(255,255,255,0.8);font-size:0.85rem;">Full Name</label>
+                        <input type="text" name="full_name" class="form-control"
+                               placeholder="Enter your full name" required
+                               style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:white;border-radius:10px;padding:12px 16px;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="color:rgba(255,255,255,0.8);font-size:0.85rem;">Phone Number</label>
+                        <input type="text" name="phone_number" class="form-control"
+                               placeholder="8801XXXXXXXXX" required
+                               style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:white;border-radius:10px;padding:12px 16px;">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold" style="color:rgba(255,255,255,0.8);font-size:0.85rem;">Password</label>
+                        <input type="password" name="password" class="form-control"
+                               placeholder="Enter your password" required
+                               style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:white;border-radius:10px;padding:12px 16px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-3 fw-semibold"
+                            style="background:linear-gradient(135deg,#6366f1,#4f46e5);border:none;border-radius:10px;font-size:1rem;">
+                        Sign In <i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+                </form>
+
+                <p class="text-center mt-4 mb-0" style="color:rgba(255,255,255,0.5);font-size:0.85rem;">
+                    Don't have an account?
+                    <a href="{{ url_for('auth.register') }}" style="color:#a5b4fc;font-weight:600;text-decoration:none;">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

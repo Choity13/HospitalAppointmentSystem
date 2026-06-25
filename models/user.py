@@ -42,11 +42,9 @@ class User(UserMixin, db.Model):
     
     def verify_otp(self, code):
         """
-        TESTING MODE: Accept any 6-digit number as a valid OTP.
-        
-        To switch back to PRODUCTION (strict matching), replace this
-        entire method body with:
-        
+        TESTING MODE — accepts any 6-digit number.
+        To restore production strict matching, replace with:
+
             now = get_current_time()
             if (self.otp_code and
                     code == self.otp_code and
@@ -55,8 +53,7 @@ class User(UserMixin, db.Model):
                 return True
             return False
         """
-        # --- TESTING BYPASS: accept any 6-digit code ---
-        if code and len(code) == 6 and code.isdigit():
+        if code and len(str(code).strip()) == 6 and str(code).strip().isdigit():
             self.otp_verified = True
             return True
         return False

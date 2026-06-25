@@ -1,86 +1,93 @@
 {% extends 'base.html' %}
-
-{% block title %}Book Appointment - Bangladesh Hospital{% endblock %}
-
+{% block title %}Book Appointment - MediCare BD{% endblock %}
 {% block page_title %}Book Appointment{% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="fw-bold" style="color: var(--primary-color);">Book Appointment</h2>
-            <p class="text-muted mb-0">Dr. {{ doctor.user.full_name }} - {{ doctor.department.dept_name }}</p>
-        </div>
-        <a href="{{ url_for('patient.browse_doctors') }}" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left me-2"></i> Back to Doctors
-        </a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-0">Dr. {{ doctor.user.full_name }}</h4>
+        <p class="text-muted mb-0 small">{{ doctor.specialty }} · {{ doctor.department.dept_name }}</p>
     </div>
+    <a href="{{ url_for('patient.browse_doctors') }}" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left me-1"></i> Back
+    </a>
+</div>
 
-    <!-- Loading Spinner -->
-    <div id="loadingSpinner" class="text-center my-5">
-        <div class="spinner-border" style="color: var(--primary-color);" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <p class="text-muted mt-2">Loading calendar...</p>
-    </div>
+<!-- Fee banner -->
+<div class="alert alert-info d-flex align-items-center gap-2 mb-4" style="border-radius:12px;">
+    <i class="bi bi-info-circle-fill fs-5"></i>
+    <span>Consultation fee: <strong>৳{{ doctor.consultation_fee }}</strong> &nbsp;|&nbsp; Select an available slot below to book.</span>
+</div>
 
-    <!-- No Slots Message -->
-    <div id="noSlotsMessage" class="card" style="display: none;">
-        <div class="card-body text-center py-5">
-            <i class="bi bi-calendar-x" style="font-size: 3rem; color: #6c757d;"></i>
-            <h5 class="text-muted mt-3">No available slots for this doctor.</h5>
-        </div>
-    </div>
+<!-- Loading Spinner -->
+<div id="loadingSpinner" class="text-center my-5">
+    <div class="spinner-border" style="color:var(--primary);" role="status"></div>
+    <p class="text-muted mt-2">Loading calendar…</p>
+</div>
 
-    <!-- Calendar Grid Container -->
-    <div id="calendarGrid" 
-         class="card" 
-         data-doctor-id="{{ doctor.doctor_id }}" 
-         data-doctor-name="{{ doctor.user.full_name }}">
-        <div class="card-body">
-            <!-- Calendar table will be inserted here -->
-        </div>
-    </div>
+<!-- No Slots -->
+<div id="noSlotsMessage" class="card text-center py-5" style="display:none;">
+    <i class="bi bi-calendar-x fs-1 text-muted"></i>
+    <h6 class="text-muted mt-3">No available slots for this doctor.</h6>
+</div>
 
-    <!-- Booking Modal -->
-    <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="bookingForm" method="POST">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirm Appointment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Calendar Grid -->
+<div id="calendarGrid"
+     class="card"
+     data-doctor-id="{{ doctor.doctor_id }}"
+     data-doctor-name="{{ doctor.user.full_name }}">
+    <div class="card-body"></div>
+</div>
+
+<!-- ── BOOKING MODAL ──────────────────────────────────────────────── -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="bookingForm" method="POST" action="">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">
+                        <i class="bi bi-calendar-check me-2" style="color:var(--primary);"></i>
+                        Confirm Appointment
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body px-4 py-3">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Doctor</label>
+                        <input type="text" id="modalDoctorName" class="form-control" readonly>
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Doctor</label>
-                            <input type="text" id="modalDoctorName" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Date & Time</label>
-                            <input type="text" id="modalDateTime" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Reason for Visit</label>
-                            <textarea id="reasonForVisit" name="reason_for_visit" class="form-control" rows="3" placeholder="Describe your symptoms or reason for visit..." required></textarea>
-                        </div>
-                        <input type="hidden" id="slotIdInput">
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>
-                            Consultation fee: ৳{{ doctor.consultation_fee }}
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Date &amp; Time</label>
+                        <input type="text" id="modalDateTime" class="form-control" readonly>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" style="background-color: var(--primary-color); border-color: var(--primary-color);">
-                            Confirm Booking
-                        </button>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Reason for Visit <span class="text-danger">*</span></label>
+                        <textarea id="reasonForVisit" name="reason_for_visit" class="form-control" rows="3"
+                            placeholder="Describe your symptoms or reason for visit…" required></textarea>
                     </div>
-                </form>
-            </div>
+                    <input type="hidden" id="slotIdInput" name="slot_id">
+                    <div class="p-3 rounded-3" style="background:#eff6ff; border:1px solid #bfdbfe;">
+                        <i class="bi bi-currency-exchange me-2" style="color:var(--primary);"></i>
+                        Consultation fee: <strong>৳{{ doctor.consultation_fee }}</strong>
+                    </div>
+                </div>
+
+                <!-- ✅ MODAL FOOTER WITH CONFIRM BUTTON -->
+                <div class="modal-footer px-4">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-check-circle me-2"></i> Confirm Booking
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
+<script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
 {% endblock %}
