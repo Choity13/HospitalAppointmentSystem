@@ -209,7 +209,7 @@ Use these accounts to test all three user roles after running `init_db.py`:
 |---|---|---|---|---|
 | **Admin** | System Admin | `880171000000` | `Admin@1234` | Full access to dashboard, doctors, reports, SMS log |
 | **Patient** | Mohammad Rahim | `880171000001` | `Patient@1234` | Can book appointments, use symptom recommender, rate doctors |
-| **Doctor** | Dr. Ayesha Khan | `880171000002` | `Doctor@1234` | Can manage schedule, view appointments, write consultation notes |
+| **Doctor** | Farhan Hossain | `8801722222201` | `Doctor@1234` | Can manage schedule, view appointments, write consultation notes |
 
 > 💡 **OTP Testing Note:** The system is currently in **testing mode**. After logging in with the correct phone number and password, enter **any 6-digit number** (e.g. `123456`) on the OTP screen. The system will accept it and complete the login.
 >
